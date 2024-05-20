@@ -19,6 +19,24 @@ class User {
     };
   }
 
+  signInUser(usernameByInput) {
+    const userExists = this.users.some(
+      (user) => user.username.toLowerCase() === usernameByInput.toLowerCase()
+    );
+
+    if (userExists) {
+      return {
+        success: true,
+        username,
+      };
+    } else {
+      return {
+        success: false,
+        message: "Data not found",
+      };
+    }
+  }
+
   getUsers() {
     return JSON.parse(localStorage.getItem("users")) || [];
   }
