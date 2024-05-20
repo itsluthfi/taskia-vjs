@@ -12,7 +12,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const result = userManager.signInUser(usernameByInput);
 
     if (result.success) {
-      alert("Login success");
+      localStorage.setItem("userLoggedIn", JSON.stringify(usernameByInput));
+      return (window.location.href = "../tasks.html");
     } else {
       alert(result.message);
     }
