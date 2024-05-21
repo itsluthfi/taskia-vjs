@@ -1,6 +1,18 @@
 // controller
 
 document.addEventListener("DOMContentLoaded", () => {
+  function formatDate(currentDate) {
+    const date = new Date(currentDate);
+
+    const options = {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    };
+
+    return date.toLocaleDateString("en-GB", options);
+  }
+
   const taskManager = new Task();
   const existingTasks = taskManager.getTasks();
 
@@ -16,6 +28,8 @@ document.addEventListener("DOMContentLoaded", () => {
       console.log("Tasks found");
 
       existingTasks.forEach((task) => {
+        const formatCurrentDate = formatDate(task.createdAt);
+
         const itemTask = document.createElement("div");
         itemTask.className =
           "flex justify-between bg-white p-5 w-full rounded-3xl";
@@ -30,9 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                     <p class="font-bold text-lg leading-[27px]">${
                                       task.taskName
                                     }</p>
-                                    <p class="text-sm leading-[21px] text-taskia-grey">Created at ${
-                                      task.createdAt
-                                    }</p>
+                                    <p class="text-sm leading-[21px] text-taskia-grey">Created at ${formatCurrentDate}</p>
                                 </div>
                             </div>
                             <div class="flex gap-4 font-semibold text-sm leading-[21px]">
@@ -80,7 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         <div class="flex flex-row items-center gap-x-3">
                             <a href="#"
                                 class="my-auto font-semibold text-taskia-red border border-taskia-red p-[12px_20px] h-12 rounded-full">Delete</a>
-                            <a href="#"
+                            <a href="#" id="completeTask-${task.id}"
                                 class="flex gap-[10px] justify-center items-center text-white p-[12px_20px] h-12 font-semibold bg-gradient-to-b from-[#977FFF] to-[#6F4FFF] rounded-full w-full border border-taskia-background-grey">Complete</a>
                         </div>
         `;
