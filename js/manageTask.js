@@ -20,7 +20,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const taskWrapperEmpty = document.getElementById("taskWrapperEmpty");
 
   function displayAllTasks(tasks = existingTasks) {
-    if (existingTasks.length === 0) {
+    if (tasks.length === 0) {
+      taskWrapperEmpty.className =
+        "flex justify-center items-center h-[420px] mx-auto";
       taskWrapper.className = "hidden";
     } else {
       taskWrapper.innerHTML = "";
@@ -89,7 +91,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             </div>
                         </div>
                         <div class="flex flex-row items-center gap-x-3">
-                            <a href="#"
+                            <a href="#" id="deleteTask-${task.id}"
                                 class="my-auto font-semibold text-taskia-red border border-taskia-red p-[12px_20px] h-12 rounded-full">Delete</a>
                             ${
                               task.isCompleted == false
@@ -109,6 +111,16 @@ document.addEventListener("DOMContentLoaded", () => {
           .addEventListener("click", function (event) {
             event.preventDefault();
             taskManager.completeTask(task.id);
+
+            const updateTask = taskManager.getTasks();
+            displayAllTasks(updateTask);
+          });
+
+        itemTask
+          .querySelector(`#deleteTask-${task.id}`)
+          .addEventListener("click", function (event) {
+            event.preventDefault();
+            taskManager.deleteTask(task.id);
 
             const updateTask = taskManager.getTasks();
             displayAllTasks(updateTask);
