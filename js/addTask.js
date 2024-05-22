@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const result = taskManager.saveTask(taskData);
 
     if (result.success) {
-      alert("Success to save task");
+      return (window.location.href = "../tasks.html");
     } else {
       console.log("failed to save task");
     }
