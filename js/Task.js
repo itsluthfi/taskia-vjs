@@ -23,4 +23,17 @@ class Task {
       success: true,
     };
   }
+
+  completeTask(taskID) {
+    const index = this.tasks.findIndex((task) => task.id === taskID);
+
+    if (index !== -1) {
+      this.tasks[index].isCompleted = true;
+      this.updateLocalStorage();
+    }
+  }
+
+  updateLocalStorage() {
+    localStorage.setItem("tasks", JSON.stringify(this.tasks));
+  }
 }
